@@ -60,7 +60,7 @@ const damage = computed(() => calcMod(mods.value, 'damage'));
 const hit = computed(() => calcMod(mods.value, 'hit'));
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .page-layout {
   display: flex;
 }
