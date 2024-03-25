@@ -17,12 +17,19 @@
           <span class="value">{{ property.value }}</span>
         </div>
       </div>
+      <div class="modifier-list">
+        <ModifierInfo
+          v-for="mod in damageMods" :key="mod.name" 
+          :name="mod.name" :value="mod.value" :description="mod.description"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import ModifierInfo from '@/components/ModifierInfo.vue';
 
 type Mod = {
   name: string,
@@ -36,28 +43,29 @@ const critChange = ref(18);
 const critMod = ref(2);
 
 const mods = ref([
-  { name: 'Luta', modifier: 'hit', value: 12 }, // (lvl/2===5) +  dex (3 | armas ágil) + treino (4)
-  { name: 'Esgrimista', modifier: 'damage', value: 5 }, // int
-  { name: 'En Garde', modifier: 'critChance', value: 2 }, // def também
-  { name: 'Estilo uma arma', modifier: 'hit', value: 2 }, // def também
-  { name: 'Ataque preciso', modifier: 'critChance', value: 2 },
-  { name: 'Ataque preciso', modifier: 'critMod', value: 1 },
-  { name: 'Ataque Acrobático', modifier: 'hit', value: 2 },
-  { name: 'Ataque Acrobático', modifier: 'damage', value: 2 }
+  { name: 'Luta', modifier: 'hit', value: 12, description: '' }, // (lvl/2===5) +  dex (3 | armas ágil) + treino (4)
+  { name: 'Esgrimista', modifier: 'damage', value: 5, description: '' }, // int
+  { name: 'En Garde', modifier: 'critChance', value: 2, description: '' }, // def também
+  { name: 'Estilo uma arma', modifier: 'hit', value: 2, description: '' }, // def também
+  { name: 'Ataque preciso', modifier: 'critChance', value: 2, description: '' },
+  { name: 'Ataque preciso', modifier: 'critMod', value: 1, description: '' },
+  { name: 'Ataque Acrobático', modifier: 'hit', value: 2, description: '' },
+  { name: 'Ataque Acrobático', modifier: 'damage', value: 2, description: '' }
 ])
 
-const calcMod = (arr: Mod[], modifier: string) => {
-  console.log('called', modifier)
+const damageMods = computed(() => mods.value.filter((mod) => mod.modifier === 'damage'))
+const hitMods = computed(() => mods.value.filter((mod) => mod.modifier === 'hit'))
+const critChanceMods = computed(() => mods.value.filter((mod) => mod.modifier === 'critChance'))
+const critModMods = computed(() => mods.value.filter((mod) => mod.modifier === 'critMod'))
+
+const calcMod = (arr: Mod[]) => {
   return arr.reduce((prev, curr) => {
-    if (curr.modifier === modifier) {
-      return prev + curr.value;
-    }
-    return prev;
+    return prev + curr.value;
   }, 0);
 }
 
-const damage = computed(() => calcMod(mods.value, 'damage'));
-const hit = computed(() => calcMod(mods.value, 'hit'));
+const damage = computed(() => calcMod(damageMods.value));
+const hit = computed(() => calcMod(hitMods.value,));
 </script>
 
 <style scoped lang="scss">
@@ -99,6 +107,16 @@ const hit = computed(() => calcMod(mods.value, 'hit'));
 
     .value {
       padding: 15px 5px;
+    }
+  }
+
+  .modifier-list {
+    margin-top: 20px;
+    display: flex;
+
+    > div {
+      width: 150px;
+      margin-right: 10px;
     }
   }
 }
