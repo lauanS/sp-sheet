@@ -118,10 +118,12 @@ function selectStatus(status: ModifierStatus): void {
   .modifier-list {
     margin-top: 20px;
     display: flex;
+    flex-wrap: wrap;
 
     > div {
       width: 250px;
       margin-right: 10px;
+      margin-bottom: 20px;
     }
   }
 }
