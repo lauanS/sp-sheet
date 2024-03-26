@@ -7,7 +7,8 @@
           v-for="status in [
             { name: 'Ataque', value: hit , code: 'hit'},
             { name: 'Dano', value: `${dices} + ${damage}` , code: 'damage'},
-            { name: 'Crítico', value: `${critChange}/${critMod}`, code: 'critChance' }
+            { name: 'Crítico', value: `${critChange}/${critMod}`, code: 'critChance' },
+            { name: 'Defesa', value: defense , code: 'defense' }
           ]"
           :key="status.name"
           :name="status.name"
@@ -60,31 +61,34 @@ const modList = ref(florianSkills.reduce<Mod[]>((skillList, skill) => {
   return skillList;
 }, []));
 
-const filterModList = (status: string) => modList.value.filter((mod) => mod.modifier === status)
-const damageMods = computed(() => filterModList('damage'))
-const hitMods = computed(() => filterModList('hit'))
-const critChanceMods = computed(() => filterModList('critChance'))
-const critModMods = computed(() => filterModList('critMod'))
+const filterModList = (status: string) => modList.value.filter((mod) => mod.modifier === status);
+const damageMods = computed(() => filterModList('damage'));
+const hitMods = computed(() => filterModList('hit'));
+const critChanceMods = computed(() => filterModList('critChance'));
+const critModMods = computed(() => filterModList('critMod'));
+const defenseMods = computed(() => filterModList('defense'));
 
 const selectedMod = computed(() => {
   const possibleMods = {
     damage: damageMods,
     hit: hitMods,
     critChance: critChanceMods,
-    critMod: critModMods
+    critMod: critModMods,
+    defense: defenseMods
   }
 
   return (possibleMods[selectedStatus.value]).value;
-})
+});
 
 const calcMod = (arr: Mod[]) => {
   return arr.reduce((prev, curr) => {
     return prev + curr.value;
   }, 0);
-}
+};
 
 const damage = computed(() => calcMod(filterModList('damage')));
 const hit = computed(() => calcMod(filterModList('hit')));
+const defense = computed(() => calcMod(filterModList('defense')));
 
 function selectStatus(status: ModifierStatus): void {
   selectedStatus.value = status;

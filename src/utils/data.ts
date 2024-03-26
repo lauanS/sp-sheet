@@ -13,6 +13,7 @@ export type Skill = {
 }
 
 const initialModifiers: Modifier[] = [
+  { status: 'defense', value: 10 },
   { status: 'critMod', value: 2 }
 ];
 
