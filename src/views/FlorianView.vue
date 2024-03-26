@@ -30,10 +30,11 @@
 </template>
 
 <script setup lang="ts">
+import type { ModifierStatus } from '@/utils/data';
 import { ref, computed } from 'vue';
 import ModifierInfo from '@/components/ModifierInfo.vue';
 import StatusInfo from '@/components/StatusInfo.vue';
-import { florianSkills, ModifierStatus } from '@/utils/data';
+import { florianSkills } from '@/utils/data';
 
 type Mod = {
   name: string,
