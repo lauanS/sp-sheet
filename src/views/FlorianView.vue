@@ -2,20 +2,18 @@
   <div class="page-layout">
     <div class="weapon">
       <h1>{{ weapon }}</h1>
-      <div class="property-list">
-        <div
-          v-for="property in [
+      <div class="status-list">
+        <StatusInfo
+          v-for="status in [
             { name: 'Ataque', value: hit },
             { name: 'Dados', value: dices },
             { name: 'Dano', value: damage },
             { name: 'Crítico', value: `${critChange}/${critMod}` }
           ]"
-          :key="property.name"
-          class="property"
-        >
-          <span class="name">{{ property.name }}</span>
-          <span class="value">{{ property.value }}</span>
-        </div>
+          :key="status.name"
+          :name="status.name"
+          :value="status.value"
+        />
       </div>
       <div>
         <h2>Origem:</h2>
@@ -33,6 +31,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import ModifierInfo from '@/components/ModifierInfo.vue';
+import StatusInfo from '@/components/StatusInfo.vue';
 import { florianSkills } from '@/utils/data';
 
 type Mod = {
@@ -91,35 +90,8 @@ const hit = computed(() => calcMod(hitMods.value,));
     font-size: 22px;
   }
 
-  .property-list {
+  .status-list {
     display: flex;
-  }
-
-  .property {
-    border: 1px solid white;
-    border-radius: 10px;
-    background-color: #161f32;
-    width: 125px;
-
-    margin-right: 10px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .name {
-      font-size: 16px;
-      border-bottom: 1px solid white;
-      text-align: center;
-      width: 100%;
-
-      padding: 5px 0px;
-      text-transform: uppercase;
-    }
-
-    .value {
-      padding: 15px 5px;
-    }
   }
 
   .modifier-list {
