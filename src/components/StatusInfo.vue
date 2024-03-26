@@ -1,12 +1,17 @@
 <template>
-  <div class="status">
+  <div :class="`status ${ selected ? 'selected' : '' }`">
     <span class="name">{{ name }}</span>
     <span class="value">{{ value }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-const { name, value } = defineProps<{ name: string, value: string | number }>()
+const { name, value, selected } = defineProps<{
+  name: string,
+  value: string | number,
+  selected: boolean
+}>()
+console.log(name, selected)
 </script>
 
 <style scoped lang="scss">
@@ -24,6 +29,13 @@ const { name, value } = defineProps<{ name: string, value: string | number }>()
   flex-direction: column;
   align-items: center;
 
+  &.selected {
+    border-color: #ffd859;
+    .name {
+      border-bottom-color: #ffd859;;
+    }
+  }
+
   .name {
     font-size: 16px;
     border-bottom: 1px solid white;
@@ -32,6 +44,7 @@ const { name, value } = defineProps<{ name: string, value: string | number }>()
 
     padding: 5px 0px;
     text-transform: uppercase;
+    font-weight: bold;
   }
 
   .value {

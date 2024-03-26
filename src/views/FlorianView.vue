@@ -13,6 +13,7 @@
           :key="status.name"
           :name="status.name"
           :value="status.value"
+          :selected="selectedStatus === status.code"
           @click="() => selectStatus(status.code as ModifierStatus)"
         />
       </div>
@@ -47,7 +48,7 @@ const weapon = ref("Florete Mitral Maciça");
 const dices = ref("1d8+1d6");
 const critChange = ref(18);
 const critMod = ref(2);
-const selectedStatus = ref<ModifierStatus>('damage');
+const selectedStatus = ref<ModifierStatus>('hit');
 
 const modList = ref(florianSkills.reduce<Mod[]>((skillList, skill) => {
   skill.modifiers.forEach(modifier => {
