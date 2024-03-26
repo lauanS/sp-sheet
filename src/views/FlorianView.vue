@@ -7,7 +7,7 @@
           v-for="status in [
             { name: 'Ataque', value: hit , code: 'hit'},
             { name: 'Dano', value: `${dices} + ${damage}` , code: 'damage'},
-            { name: 'Crítico', value: `${critChange}/${critMod}`, code: 'critChance' },
+            { name: 'Crítico', value: `${critChance}/${critMod}`, code: 'critChance' },
             { name: 'Defesa', value: defense , code: 'defense' }
           ]"
           :key="status.name"
@@ -46,8 +46,7 @@ type Mod = {
 
 const weapon = ref("Florete Mitral Maciça");
 const dices = ref("1d8+1d6");
-const critChange = ref(18);
-const critMod = ref(2);
+
 const selectedStatus = ref<ModifierStatus>('hit');
 
 const modList = ref(florianSkills.reduce<Mod[]>((skillList, skill) => {
@@ -91,6 +90,8 @@ const calcMod = (arr: Mod[]) => {
 const damage = computed(() => calcMod(filterModList('damage')));
 const hit = computed(() => calcMod(filterModList('hit')));
 const defense = computed(() => calcMod(filterModList('defense')));
+const critChance = computed(() => 20 - calcMod(filterModList('critChance')));
+const critMod = computed(() => calcMod(filterModList('critMod')));
 
 function selectStatus(status: ModifierStatus): void {
   selectedStatus.value = status;
