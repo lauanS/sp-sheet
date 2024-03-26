@@ -11,7 +11,6 @@ const { name, value, selected } = defineProps<{
   value: string | number,
   selected: boolean
 }>()
-console.log(name, selected)
 </script>
 
 <style scoped lang="scss">
