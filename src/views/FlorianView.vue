@@ -30,11 +30,13 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import ModifierInfo from '@/components/ModifierInfo.vue';
+import { florianSkills } from '@/utils/data';
 
 type Mod = {
   name: string,
   modifier: string,
-  value: number
+  value: number,
+  description: string
 }
 
 const weapon = ref("Florete Mitral Maciça");
@@ -42,16 +44,19 @@ const dices = ref("1d8+1d6");
 const critChange = ref(18);
 const critMod = ref(2);
 
-const mods = ref([
-  { name: 'Luta', modifier: 'hit', value: 12, description: '' }, // (lvl/2===5) +  dex (3 | armas ágil) + treino (4)
-  { name: 'Esgrimista', modifier: 'damage', value: 5, description: '' }, // int
-  { name: 'En Garde', modifier: 'critChance', value: 2, description: '' }, // def também
-  { name: 'Estilo uma arma', modifier: 'hit', value: 2, description: '' }, // def também
-  { name: 'Ataque preciso', modifier: 'critChance', value: 2, description: '' },
-  { name: 'Ataque preciso', modifier: 'critMod', value: 1, description: '' },
-  { name: 'Ataque Acrobático', modifier: 'hit', value: 2, description: '' },
-  { name: 'Ataque Acrobático', modifier: 'damage', value: 2, description: '' }
-])
+const mods = ref(florianSkills.reduce<Mod[]>((skillList, skill) => {
+  const modifier = skill.modifiers.find((modifier) => modifier.status === 'damage');
+
+  if (modifier) {
+    skillList.push({
+      name: skill.name,
+      modifier: modifier.status,
+      value: modifier.value,
+      description: skill.description
+    })
+  }
+  return skillList;
+}, []));
 
 const damageMods = computed(() => mods.value.filter((mod) => mod.modifier === 'damage'))
 const hitMods = computed(() => mods.value.filter((mod) => mod.modifier === 'hit'))
