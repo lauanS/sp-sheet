@@ -12,7 +12,12 @@ export type Skill = {
   description: string
 }
 
+const initialModifiers: Modifier[] = [
+  { status: 'critMod', value: 2 }
+];
+
 export const florianSkills: Skill[] = [
+  { name: 'Base', type: 'passive', modifiers: initialModifiers, description: "Valores iniciais de todo personagem" },
   { name: 'Autoconfiança', type: 'passive', modifiers: [{ status: 'defense', value: 5 }], description: 'Você pode somar seu bônus de Carisma em vez de Destreza na Defesa (mas continua não podendo somar um bônus de atributo na Defesa quando usa armadura pesada).' },
   { name: 'Insolência', type: 'passive', modifiers: [{ status: 'defense', value: 5 }], description: 'Você soma seu bônus de Carisma na Defesa, limitado pelo seu nível. Esta habilidade exige liberdade de movimentos; você não pode usá-la se estiver de armadura pesada ou na condição imóvel' },
   { name: 'Esquiva sagaz', type: 'passive', modifiers: [{ status: 'defense', value: 2 }], description: 'No 3º nível, você recebe +1 na Defesa. Esse bônus aumenta em +1 a cada quatro níveis. Esta habilidade exige liberdade de movimentos; você não pode usá-la se estiver de armadura pesada ou na condição imóvel.' },
