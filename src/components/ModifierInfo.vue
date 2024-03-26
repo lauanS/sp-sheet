@@ -32,6 +32,9 @@ const { name, value, description } = defineProps<{ name: string, value: number, 
 
     text-align: center;
     font-size: 28px;
+    line-height: 50px;
+
+    height: 50px;
 
     padding: 14px 0px;
     margin-bottom: 16px;

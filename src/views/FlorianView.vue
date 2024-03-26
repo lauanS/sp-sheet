@@ -17,11 +17,14 @@
           <span class="value">{{ property.value }}</span>
         </div>
       </div>
-      <div class="modifier-list">
-        <ModifierInfo
-          v-for="mod in damageMods" :key="mod.name" 
-          :name="mod.name" :value="mod.value" :description="mod.description"
-        />
+      <div>
+        <h2>Origem:</h2>
+        <div class="modifier-list">
+          <ModifierInfo
+            v-for="mod in damageMods" :key="mod.name" 
+            :name="mod.name" :value="mod.value" :description="mod.description"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -84,6 +87,10 @@ const hit = computed(() => calcMod(hitMods.value,));
     display: block;
   }
 
+  h2 {
+    font-size: 22px;
+  }
+
   .property-list {
     display: flex;
   }
@@ -120,7 +127,7 @@ const hit = computed(() => calcMod(hitMods.value,));
     display: flex;
 
     > div {
-      width: 150px;
+      width: 250px;
       margin-right: 10px;
     }
   }
