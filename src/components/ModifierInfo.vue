@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="mod-value">
-      {{ value > 0 ? `+${value}` : `-${value}`}}
+      {{ value > 0 ? `+${value}` : value }}
     </div>
     <div class="mod-title">
       <span>{{ name }}</span>
