@@ -5,21 +5,21 @@
       <div class="status-list">
         <StatusInfo
           v-for="status in [
-            { name: 'Ataque', value: hit },
-            { name: 'Dados', value: dices },
-            { name: 'Dano', value: damage },
-            { name: 'Crítico', value: `${critChange}/${critMod}` }
+            { name: 'Ataque', value: hit , code: 'hit'},
+            { name: 'Dano', value: `${dices} + ${damage}` , code: 'damage'},
+            { name: 'Crítico', value: `${critChange}/${critMod}`, code: 'critChance' }
           ]"
           :key="status.name"
           :name="status.name"
           :value="status.value"
+          @click="() => selectStatus(status.code as ModifierStatus)"
         />
       </div>
       <div>
         <h2>Origem:</h2>
         <div class="modifier-list">
           <ModifierInfo
-            v-for="mod in damageMods" :key="mod.name" 
+            v-for="mod in selectedMod" :key="mod.name" 
             :name="mod.name" :value="mod.value" :description="mod.description"
           />
         </div>
@@ -32,7 +32,7 @@
 import { ref, computed } from 'vue';
 import ModifierInfo from '@/components/ModifierInfo.vue';
 import StatusInfo from '@/components/StatusInfo.vue';
-import { florianSkills } from '@/utils/data';
+import { florianSkills, ModifierStatus } from '@/utils/data';
 
 type Mod = {
   name: string,
@@ -45,25 +45,37 @@ const weapon = ref("Florete Mitral Maciça");
 const dices = ref("1d8+1d6");
 const critChange = ref(18);
 const critMod = ref(2);
+const selectedStatus = ref<ModifierStatus>('damage');
 
-const mods = ref(florianSkills.reduce<Mod[]>((skillList, skill) => {
-  const modifier = skill.modifiers.find((modifier) => modifier.status === 'damage');
-
-  if (modifier) {
+const modList = ref(florianSkills.reduce<Mod[]>((skillList, skill) => {
+  skill.modifiers.forEach(modifier => {
     skillList.push({
       name: skill.name,
       modifier: modifier.status,
       value: modifier.value,
       description: skill.description
     })
-  }
+  });
+
   return skillList;
 }, []));
 
-const damageMods = computed(() => mods.value.filter((mod) => mod.modifier === 'damage'))
-const hitMods = computed(() => mods.value.filter((mod) => mod.modifier === 'hit'))
-const critChanceMods = computed(() => mods.value.filter((mod) => mod.modifier === 'critChance'))
-const critModMods = computed(() => mods.value.filter((mod) => mod.modifier === 'critMod'))
+const filterModList = (status: string) => modList.value.filter((mod) => mod.modifier === status)
+const damageMods = computed(() => filterModList('damage'))
+const hitMods = computed(() => filterModList('hit'))
+const critChanceMods = computed(() => filterModList('critChance'))
+const critModMods = computed(() => filterModList('critMod'))
+
+const selectedMod = computed(() => {
+  const possibleMods = {
+    damage: damageMods,
+    hit: hitMods,
+    critChance: critChanceMods,
+    critMod: critModMods
+  }
+
+  return (possibleMods[selectedStatus.value]).value;
+})
 
 const calcMod = (arr: Mod[]) => {
   return arr.reduce((prev, curr) => {
@@ -71,8 +83,12 @@ const calcMod = (arr: Mod[]) => {
   }, 0);
 }
 
-const damage = computed(() => calcMod(damageMods.value));
-const hit = computed(() => calcMod(hitMods.value,));
+const damage = computed(() => calcMod(filterModList('damage')));
+const hit = computed(() => calcMod(filterModList('hit')));
+
+function selectStatus(status: ModifierStatus): void {
+  selectedStatus.value = status;
+}
 </script>
 
 <style scoped lang="scss">

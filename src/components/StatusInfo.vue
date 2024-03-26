@@ -16,6 +16,8 @@ const { name, value } = defineProps<{ name: string, value: string | number }>()
   background-color: #161f32;
   width: 125px;
 
+  cursor: pointer;
+
   margin-right: 10px;
 
   display: flex;

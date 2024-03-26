@@ -1,5 +1,7 @@
+export type ModifierStatus = 'defense' | 'hit' | 'damage' | 'critChance' | 'critMod';
+
 export type Modifier = {
-  status: 'defense' | 'hit' | 'damage' | 'critChance' | 'critMod',
+  status: ModifierStatus,
   value: number
 }
 
