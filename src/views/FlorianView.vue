@@ -35,7 +35,7 @@ import type { ModifierStatus } from '@/utils/data';
 import { ref, computed } from 'vue';
 import ModifierInfo from '@/components/ModifierInfo.vue';
 import StatusInfo from '@/components/StatusInfo.vue';
-import { florianSkills } from '@/utils/data';
+import { florianSkills, rapier } from '@/utils/data';
 
 type Mod = {
   name: string,
@@ -45,7 +45,7 @@ type Mod = {
 }
 
 const weapon = ref("Florete Mitral Maciça");
-const dices = ref("1d8+1d6");
+const dices = ref(rapier.dice);
 
 const selectedStatus = ref<ModifierStatus>('hit');
 
@@ -90,7 +90,7 @@ const calcMod = (arr: Mod[]) => {
 const damage = computed(() => calcMod(filterModList('damage')));
 const hit = computed(() => calcMod(filterModList('hit')));
 const defense = computed(() => calcMod(filterModList('defense')));
-const critChance = computed(() => 20 - calcMod(filterModList('critChance')));
+const critChance = computed(() => rapier.critChance - calcMod(filterModList('critChance')));
 const critMod = computed(() => calcMod(filterModList('critMod')));
 
 function selectStatus(status: ModifierStatus): void {

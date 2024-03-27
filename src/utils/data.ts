@@ -12,6 +12,13 @@ export type Skill = {
   description: string
 }
 
+export type Weapon = {
+  name: string,
+  dice: string,
+  critChance: number,
+  critMod: number
+};
+
 const initialModifiers: Modifier[] = [
   { status: 'defense', value: 10 },
   { status: 'critMod', value: 2 }
@@ -33,3 +40,10 @@ export const florianSkills: Skill[] = [
   { name: 'Bravata imprudente', type: 'passive', modifiers: [{ status: 'hit', value: 2 }, { status: 'critChance', value: 2 }], description: 'Na primeira rodada de um combate, você pode jurar derrotar seus inimigos com uma restrição a sua escolha, como lutar com uma mão nas costas, de guarda aberta (em termos de jogo, desprevenido), de olhos vendados (cego) etc. Uma restrição só é válida se prejudicá-lo (por exemplo, lutar com uma mão nas costas só vale como restrição se você luta com duas armas). O mestre tem a palavra final sobre a validade de uma restrição. Você sofre a penalidade durante todo o combate, mas, se vencer, recebe +2 nos testes de ataque e na margem de ameaça até o fim da aventura' },
   { name: 'Combate defensivo', type: 'passive', modifiers: [{ status: 'hit', value: -2 }, { status: 'defense', value: 5 }], description: 'Quando usa a ação atacar, você pode usar este poder. Se fizer isso, até seu próximo turno, sofre –2 em todos os testes de ataque, mas recebe +5 na Defesa. Pré-requisito: Int 13.'}
 ];
+
+export const rapier: Weapon = {
+  name: 'Rapier',
+  dice: '1d6',
+  critChance: 18,
+  critMod: 2
+};
