@@ -17,6 +17,13 @@
           @click="() => selectStatus(status.code as ModifierStatus)"
         />
       </div>
+      <div class="skill-list">
+        <SkillButton
+          v-for="skill in activeSkillList" :key="skill.name" 
+          :skill="skill"
+          @click="() => toggleActiveSkill(skill)"
+        />
+      </div>
       <div>
         <h2>Origem:</h2>
         <div class="modifier-list">
@@ -31,10 +38,11 @@
 </template>
 
 <script setup lang="ts">
-import type { ModifierStatus } from '@/utils/data';
+import type { ModifierStatus, ActiveSkill } from '@/utils/data';
 import { ref, computed } from 'vue';
 import ModifierInfo from '@/components/ModifierInfo.vue';
 import StatusInfo from '@/components/StatusInfo.vue';
+import SkillButton from '@/components/SkillButton.vue';
 import { florianSkills, rapier } from '@/utils/data';
 
 type Mod = {
@@ -49,15 +57,23 @@ const dices = ref(rapier.dice);
 
 const selectedStatus = ref<ModifierStatus>('hit');
 
+const activeSkillList = ref<ActiveSkill[]>([]);
+
 const modList = ref(florianSkills.reduce<Mod[]>((skillList, skill) => {
-  skill.modifiers.forEach(modifier => {
-    skillList.push({
-      name: skill.name,
-      modifier: modifier.status,
-      value: modifier.value,
-      description: skill.description
-    })
-  });
+  if (skill.type === 'passive') {
+    skill.modifiers.forEach(modifier => {
+      skillList.push({
+        name: skill.name,
+        modifier: modifier.status,
+        value: modifier.value,
+        description: skill.description
+      })
+    });
+  }
+
+  if (skill.type === 'active') {
+    activeSkillList.value.push(skill as ActiveSkill);
+  }
 
   return skillList;
 }, []));
@@ -68,6 +84,13 @@ const hitMods = computed(() => filterModList('hit'));
 const critChanceMods = computed(() => filterModList('critChance'));
 const critModMods = computed(() => filterModList('critMod'));
 const defenseMods = computed(() => filterModList('defense'));
+
+const sumMod = (arr: Mod[]): number => arr.reduce((prev, curr) => prev + curr.value, 0);
+const damage = computed(() => sumMod(filterModList('damage')));
+const hit = computed(() => sumMod(filterModList('hit')));
+const defense = computed(() => sumMod(filterModList('defense')));
+const critChance = computed(() => rapier.critChance - sumMod(filterModList('critChance')));
+const critMod = computed(() => sumMod(filterModList('critMod')));
 
 const selectedMod = computed(() => {
   const possibleMods = {
@@ -81,20 +104,24 @@ const selectedMod = computed(() => {
   return (possibleMods[selectedStatus.value]).value;
 });
 
-const calcMod = (arr: Mod[]) => {
-  return arr.reduce((prev, curr) => {
-    return prev + curr.value;
-  }, 0);
-};
-
-const damage = computed(() => calcMod(filterModList('damage')));
-const hit = computed(() => calcMod(filterModList('hit')));
-const defense = computed(() => calcMod(filterModList('defense')));
-const critChance = computed(() => rapier.critChance - calcMod(filterModList('critChance')));
-const critMod = computed(() => calcMod(filterModList('critMod')));
-
 function selectStatus(status: ModifierStatus): void {
   selectedStatus.value = status;
+}
+
+function toggleActiveSkill(skill: ActiveSkill): void {
+  const originalLength = modList.value.length;
+  modList.value = modList.value.filter((mod) => mod.name !== skill.name);
+
+  if (modList.value.length === originalLength) {
+    skill.modifiers.forEach((modifier) => {
+      modList.value.push({
+        name: skill.name,
+        modifier: modifier.status,
+        value: modifier.value,
+        description: skill.description
+      })
+    })
+  }
 }
 </script>
 
@@ -115,6 +142,16 @@ function selectStatus(status: ModifierStatus): void {
 
   .status-list {
     display: flex;
+  }
+
+  .skill-list {
+    margin-top: 20px;
+    display: flex;
+
+    > button {
+      margin-right: 10px;
+      margin-bottom: 20px;
+    }
   }
 
   .modifier-list {
