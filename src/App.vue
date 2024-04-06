@@ -1,10 +1,12 @@
 <template>
   <div class="main-layout">
     <RouterView />
+    <FixedFooter />
   </div>
 </template>
 
 <script setup lang="ts">
+import FixedFooter from '@/components/FixedFooter.vue';
 </script>
 
 <style scoped>
