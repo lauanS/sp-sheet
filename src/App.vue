@@ -1,12 +1,12 @@
 <template>
   <div class="main-layout">
     <RouterView />
-    <FixedFooter />
   </div>
+  <FooterSection />
 </template>
 
 <script setup lang="ts">
-import FixedFooter from '@/components/FixedFooter.vue';
+import FooterSection from '@/components/FooterSection.vue';
 </script>
 
 <style scoped>
@@ -14,8 +14,8 @@ import FixedFooter from '@/components/FixedFooter.vue';
   background-color: #111827;
   color: white;
 
-  min-width: 100vw;
-  min-height: 100vh;
+  width: 100%;
+  min-height: calc(100vh - 60px);
   padding: 20px;
   box-sizing: border-box;
 }
