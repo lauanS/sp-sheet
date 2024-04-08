@@ -24,6 +24,8 @@ function toggleActivedState() {
   border-radius: 15px;
   padding: 15px;
 
+  background-color: #111827;
+
   width: 130px;
   height: 160px;
 
