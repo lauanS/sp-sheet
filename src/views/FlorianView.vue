@@ -14,6 +14,7 @@
           :name="status.name"
           :value="status.value"
           :selected="selectedStatus === status.code"
+          class="status-item"
           @click="() => selectStatus(status.code as ModifierStatus)"
         />
       </div>
@@ -142,15 +143,39 @@ function toggleActiveSkill(skill: ActiveSkill): void {
 
   .status-list {
     display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+    margin-bottom: 10px;
+
+    .status-item {
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 480px) {
+      .status-item {
+        box-sizing: border-box;
+        flex: 1;
+        width: calc(3 / 12 * 100%);
+      }
+    }
   }
 
   .skill-list {
-    margin-top: 20px;
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 
     > button {
-      margin-right: 10px;
       margin-bottom: 20px;
+    }
+
+    @media (max-width: 480px) {
+      > button {
+        box-sizing: border-box;
+        flex: 1;
+        width: calc(6 / 12 * 100%);
+      }
     }
   }
 
@@ -163,6 +188,12 @@ function toggleActiveSkill(skill: ActiveSkill): void {
       width: 250px;
       margin-right: 10px;
       margin-bottom: 20px;
+    }
+
+    @media (max-width: 480px) {
+      > div {
+        width: 100%;
+      }
     }
   }
 }

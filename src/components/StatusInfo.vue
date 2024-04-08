@@ -18,11 +18,11 @@ const { name, value, selected } = defineProps<{
   border: 1px solid white;
   border-radius: 10px;
   background-color: #161f32;
-  width: 125px;
+
+  box-sizing: border-box;
+  width: 130px;
 
   cursor: pointer;
-
-  margin-right: 10px;
 
   display: flex;
   flex-direction: column;
