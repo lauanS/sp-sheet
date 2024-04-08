@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p>Developed by <a target="_blank" href="https://github.com/lauanS" >lauanS</a>, icons by:  <a target="_blank" href="https://icons8.com">Icons8</a></p>
+    <p>Developed by <a target="_blank" href="https://github.com/lauanS">lauanS</a>, icons by:  <a target="_blank" href="https://icons8.com">Icons8</a></p>
   </footer>
 </template>
 
@@ -18,6 +18,18 @@ footer {
   p {
     margin: 0;
     padding-top: 21px
+  }
+
+  a:link {
+    color: #0066cc;
+  }
+
+  a:visited {
+    color: #8a54ab;
+  }
+
+  a:hover, a:active {
+    color: #bd429b;
   }
 }
 </style>
