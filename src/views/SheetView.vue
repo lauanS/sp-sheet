@@ -1,12 +1,13 @@
 <template>
   <div class="page-layout">
     <div class="weapon">
-      <h1>{{ weapon }}</h1>
+      <h1>{{ weapon.name }}</h1>
+      <ImportCharacterButton style="margin-bottom: 20px;" @onload="fillCharacterInfo" />
       <div class="status-list">
         <StatusInfo
           v-for="status in [
             { name: 'Ataque', value: hit , code: 'hit'},
-            { name: 'Dano', value: `${dices} + ${damage}` , code: 'damage'},
+            { name: 'Dano', value: `${weapon.dice} + ${damage}` , code: 'damage'},
             { name: 'Crítico', value: `${critChance}/${critMod}`, code: 'critChance' },
             { name: 'Defesa', value: defense , code: 'defense' }
           ]"
@@ -39,12 +40,13 @@
 </template>
 
 <script setup lang="ts">
-import type { ModifierStatus, ActiveSkill } from '@/utils/data';
+import type { ModifierStatus, ActiveSkill, Character, Weapon } from '@/utils/data';
 import { ref, computed } from 'vue';
 import ModifierInfo from '@/components/ModifierInfo.vue';
 import StatusInfo from '@/components/StatusInfo.vue';
 import SkillButton from '@/components/SkillButton.vue';
-import { florianSkills, rapier } from '@/utils/data';
+import ImportCharacterButton from '@/components/ImportCharacterButton.vue';
+import { florianSkills } from '@/utils/data';
 
 type Mod = {
   name: string,
@@ -53,8 +55,12 @@ type Mod = {
   description: string
 }
 
-const weapon = ref("Florete Mitral Maciça");
-const dices = ref(rapier.dice);
+const weapon = ref<Weapon>({
+  name: "Espada curta",
+  dice: "1d6",
+  critChance: 20,
+  critMod: 2
+});
 
 const selectedStatus = ref<ModifierStatus>('hit');
 
@@ -90,8 +96,8 @@ const sumMod = (arr: Mod[]): number => arr.reduce((prev, curr) => prev + curr.va
 const damage = computed(() => sumMod(filterModList('damage')));
 const hit = computed(() => sumMod(filterModList('hit')));
 const defense = computed(() => sumMod(filterModList('defense')));
-const critChance = computed(() => rapier.critChance - sumMod(filterModList('critChance')));
-const critMod = computed(() => sumMod(filterModList('critMod')));
+const critChance = computed(() => weapon.value.critChance - sumMod(filterModList('critChance')));
+const critMod = computed(() => weapon.value.critMod + sumMod(filterModList('critMod')));
 
 const selectedMod = computed(() => {
   const possibleMods = {
@@ -123,6 +129,10 @@ function toggleActiveSkill(skill: ActiveSkill): void {
       })
     })
   }
+}
+
+function fillCharacterInfo(character: Character): void {
+  weapon.value = character.weapon
 }
 </script>
 

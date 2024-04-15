@@ -30,6 +30,12 @@ export type Weapon = {
   critMod: number
 };
 
+export type Character = {
+  name: string,
+  weapon: Weapon,
+  skills: Skill[]
+}
+
 const initialModifiers: Modifier[] = [
   { status: 'defense', value: 10 },
   { status: 'critMod', value: 2 }
