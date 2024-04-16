@@ -1,8 +1,9 @@
 <template>
   <div class="page-layout">
     <div class="weapon">
-      <h1>{{ weapon.name }}</h1>
+      <h1>{{ characterName }}</h1>
       <ImportCharacterButton style="margin-bottom: 20px;" @onload="fillCharacterInfo" />
+      <h2>{{ weapon.name }}</h2>
       <div class="status-list">
         <StatusInfo
           v-for="status in [
@@ -55,6 +56,7 @@ type Mod = {
   description: string
 }
 
+const characterName = ref('Nome do personagem');
 const weapon = ref<Weapon>({
   name: "Espada curta",
   dice: "1d6",
@@ -132,6 +134,7 @@ function toggleActiveSkill(skill: ActiveSkill): void {
 }
 
 function fillCharacterInfo(character: Character): void {
+  characterName.value = character.name
   weapon.value = character.weapon
 }
 </script>
