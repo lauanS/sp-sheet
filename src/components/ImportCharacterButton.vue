@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Character } from '@/utils/data';
+import type { Character } from '@/types';
 
 const emit = defineEmits<{
   (e: 'onload', character: Character): void

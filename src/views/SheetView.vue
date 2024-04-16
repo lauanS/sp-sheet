@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ModifierStatus, Skill, ActiveSkill, Character, Weapon } from '@/utils/data';
+import type { ModifierStatus, Skill, ActiveSkill, Character, Weapon } from '@/types';
 import { ref, computed } from 'vue';
 import ModifierInfo from '@/components/ModifierInfo.vue';
 import StatusInfo from '@/components/StatusInfo.vue';
