@@ -12,16 +12,23 @@ export type Modifier = {
   value: number
 }
 
-export type Skill = {
+export type BasicSkill = {
   name: string,
   type: 'passive' | 'active',
   modifiers: Modifier[]
   description: string
 }
 
-export type ActiveSkill = Skill & {
+export type PassiveSkill = BasicSkill & {
+  type: 'passive'
+}
+
+export type ActiveSkill = BasicSkill & {
+  type: 'active'
   img: string
 }
+
+export type Skill = PassiveSkill | ActiveSkill
 
 export type Weapon = {
   name: string,
@@ -41,7 +48,7 @@ const initialModifiers: Modifier[] = [
   { status: 'critMod', value: 2 }
 ];
 
-export const florianSkills: (Skill | ActiveSkill)[] = [
+export const florianSkills: Skill[] = [
   { name: 'Base', type: 'passive', modifiers: initialModifiers, description: "Valores iniciais de todo personagem" },
   { name: 'Luta', type: 'passive', modifiers: [{ status: 'hit', value: 12 }], description: "Esta perícia mede sua capacidade de luta corpo a corpo, seja com armas brancas, seja desarmado." },
   { name: 'Mitral', type: 'passive', modifiers: [{ status: 'critChance', value: 1 }], description: "Metal muito raro, o mitral é prateado e brilhante, tendo metade do peso do aço. Armas de mitral aumentam sua margem de ameaça em 1. Por exemplo, uma espada longa de mitral tem margem de ameaça 18-20." },
