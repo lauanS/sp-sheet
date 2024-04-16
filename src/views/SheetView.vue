@@ -41,13 +41,12 @@
 </template>
 
 <script setup lang="ts">
-import type { ModifierStatus, ActiveSkill, Character, Weapon } from '@/utils/data';
+import type { ModifierStatus, Skill, ActiveSkill, Character, Weapon } from '@/utils/data';
 import { ref, computed } from 'vue';
 import ModifierInfo from '@/components/ModifierInfo.vue';
 import StatusInfo from '@/components/StatusInfo.vue';
 import SkillButton from '@/components/SkillButton.vue';
 import ImportCharacterButton from '@/components/ImportCharacterButton.vue';
-import { florianSkills } from '@/utils/data';
 
 type Mod = {
   name: string,
@@ -68,24 +67,7 @@ const selectedStatus = ref<ModifierStatus>('hit');
 
 const activeSkillList = ref<ActiveSkill[]>([]);
 
-const modList = ref(florianSkills.reduce<Mod[]>((skillList, skill) => {
-  if (skill.type === 'passive') {
-    skill.modifiers.forEach(modifier => {
-      skillList.push({
-        name: skill.name,
-        modifier: modifier.status,
-        value: modifier.value,
-        description: skill.description
-      })
-    });
-  }
-
-  if (skill.type === 'active') {
-    activeSkillList.value.push(skill as ActiveSkill);
-  }
-
-  return skillList;
-}, []));
+const modList = ref<Mod[]>([]);
 
 const filterModList = (status: string) => modList.value.filter((mod) => mod.modifier === status);
 const damageMods = computed(() => filterModList('damage'));
@@ -134,8 +116,30 @@ function toggleActiveSkill(skill: ActiveSkill): void {
 }
 
 function fillCharacterInfo(character: Character): void {
-  characterName.value = character.name
-  weapon.value = character.weapon
+  characterName.value = character.name;
+  weapon.value = character.weapon;
+  modList.value = getModListFromSkills(character.skills);
+}
+
+function getModListFromSkills(skills: Skill[]): Mod[] {
+  return skills.reduce<Mod[]>((skillList, skill) => {
+    if (skill.type === 'passive') {
+      skill.modifiers.forEach(modifier => {
+        skillList.push({
+          name: skill.name,
+          modifier: modifier.status,
+          value: modifier.value,
+          description: skill.description
+        })
+      });
+    }
+
+    if (skill.type === 'active') {
+      activeSkillList.value.push(skill as ActiveSkill);
+    }
+
+    return skillList;
+  }, []);
 }
 </script>
 
