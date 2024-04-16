@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ModifierStatus, Skill, ActiveSkill, Character, Weapon } from '@/types';
+import type { ModifierStatus, Skill, ActiveSkill, PassiveSkill, Character, Weapon } from '@/types';
 import { ref, computed } from 'vue';
 import ModifierInfo from '@/components/ModifierInfo.vue';
 import StatusInfo from '@/components/StatusInfo.vue';
@@ -118,27 +118,42 @@ function toggleActiveSkill(skill: ActiveSkill): void {
 function fillCharacterInfo(character: Character): void {
   characterName.value = character.name;
   weapon.value = character.weapon;
-  modList.value = getModListFromSkills(character.skills);
+
+  const { passiveSkills, activeSkills } = separateActiveAndPassiveSkills(character.skills);
+
+  modList.value = passiveSkillsToModList(passiveSkills);
+  activeSkillList.value = activeSkills;
 }
 
-function getModListFromSkills(skills: Skill[]): Mod[] {
-  return skills.reduce<Mod[]>((skillList, skill) => {
+function separateActiveAndPassiveSkills(skills: Skill[]): { passiveSkills: PassiveSkill[], activeSkills: ActiveSkill[] } {
+  const passiveSkills: PassiveSkill[] = [];
+  const activeSkills: ActiveSkill[] = [];
+
+  skills.forEach((skill) => {
     if (skill.type === 'passive') {
-      skill.modifiers.forEach(modifier => {
-        skillList.push({
-          name: skill.name,
-          modifier: modifier.status,
-          value: modifier.value,
-          description: skill.description
-        })
-      });
+      passiveSkills.push(skill as PassiveSkill);
     }
 
     if (skill.type === 'active') {
-      activeSkillList.value.push(skill as ActiveSkill);
+      activeSkills.push(skill as ActiveSkill);
     }
+  }, []);
 
-    return skillList;
+  return { passiveSkills,  activeSkills };
+}
+
+function passiveSkillsToModList(skills: PassiveSkill[]): Mod[] {
+  return skills.reduce<Mod[]>((modList, skill) => {
+    skill.modifiers.forEach(modifier => {
+      modList.push({
+        name: skill.name,
+        modifier: modifier.status,
+        value: modifier.value,
+        description: skill.description
+      })
+    });
+
+    return modList;
   }, []);
 }
 </script>
