@@ -27,8 +27,8 @@
           @click="() => toggleActiveSkill(skill)"
         />
       </div>
-      <div>
-        <h2>Origem:</h2>
+      <div v-if="selectedMod && selectedMod.length">
+        <h2>Origem dos modificadores:</h2>
         <div class="modifier-list">
           <ModifierInfo
             v-for="mod in selectedMod" :key="mod.name" 
@@ -170,7 +170,7 @@ function passiveSkillsToModList(skills: PassiveSkill[]): Mod[] {
   }
 
   h2 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .status-list {
