@@ -2,7 +2,7 @@
   <div class="page-layout">
     <div class="weapon">
       <h1>{{ characterName }}</h1>
-      <ImportCharacterButton style="margin-bottom: 20px;" @onload="fillCharacterInfo" />
+      <ImportCharacterButton @onload="fillCharacterInfo" />
       <h2>{{ weapon.name }}</h2>
       <div class="status-list">
         <StatusInfo
