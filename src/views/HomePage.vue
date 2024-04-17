@@ -99,6 +99,15 @@
       font-family: 'Montserrat';
       text-transform: uppercase;
     }
+
+    mark {
+      background-color: unset;
+      color: #ffe89b;
+      text-shadow: 
+      0 0 4px #948b09,
+      0 0 8px #948b09,
+      0 0 12px #948b09,
+    }
   }
 
   .main-button {
