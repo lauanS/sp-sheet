@@ -94,6 +94,11 @@
 
     height: 100%;
     width: 60%;
+
+    h2, p, mark {
+      font-family: 'Montserrat';
+      text-transform: uppercase;
+    }
   }
 
   .main-button {
