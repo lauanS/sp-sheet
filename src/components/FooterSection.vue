@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <p>Developed by <a target="_blank" href="https://github.com/lauanS">lauanS</a>, icons by:  <a target="_blank" href="https://icons8.com">Icons8</a></p>
+    <p>Developed by <a target="_blank" href="https://github.com/lauanS">lauanS</a></p>
   </footer>
 </template>
 
