@@ -9,7 +9,7 @@
       </div>
 
       <div class="home-actions">
-        <button class="main-button">Importar personagem</button>
+        <ImportCharacterButton class="main-button" @onload="navigateToSheetPage" />
         <button class="main-button">Utilizar personagens de demonstração</button>
       </div>
     </div>
@@ -24,6 +24,16 @@
 </template>
 
 <script setup lang="ts">
+import type { Character } from '@/types';
+import { useRouter } from 'vue-router';
+import ImportCharacterButton from '@/components/ImportCharacterButton.vue';
+
+const router = useRouter();
+
+function navigateToSheetPage(character: Character) {
+  localStorage.setItem('character', JSON.stringify(character));
+  router.push({ path: '/sheet' });
+}
 </script>
 
 <style scoped lang="scss">
@@ -77,12 +87,8 @@
 
       margin-top: 50px;
 
-      > button {
+      > div {
         margin-bottom: 25px;
-      }
-
-      > button:last-child {
-        margin-bottom: 0;
       }
     }
   }
@@ -142,6 +148,7 @@
     color: white;
     font-size: 22px;
     font-weight: bold;
+    text-align: center;
     text-transform: uppercase;
     text-shadow: 1px 1px 0 #000000ce;
 
