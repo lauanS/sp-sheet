@@ -15,10 +15,10 @@
     </div>
 
     <div class="home-right-side">
-      <h2>Gerencie os status do seu <mark>personagem de RPG</mark></h2>
-      <p>Saiba facilmente o valor e a origem de cada modificador</p>
-      <p>Pare de perder tempo somando os modificadores toda hora</p>
-      <p>Deixe de esquecer de osmar inspiração</p>
+      <h2>Gerencie os status do seu <br><mark>personagem de RPG</mark></h2>
+      <p class="sheet-purpose-summary">Saiba facilmente o valor e a origem de cada modificador</p>
+      <p class="sheet-purpose-feat">Pare de perder tempo somando os modificadores toda hora</p>
+      <p class="sheet-purpose-feat">Deixe de esquecer de osmar inspiração</p>
     </div>
   </div>
 </template>
@@ -89,15 +89,23 @@
   .home-right-side {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: start;
 
+    box-sizing: border-box;
+    padding-left: 5%;
+    
     height: 100%;
     width: 60%;
 
     h2, p, mark {
       font-family: 'Montserrat';
       text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
     }
 
     mark {
@@ -107,6 +115,18 @@
       0 0 4px #948b09,
       0 0 8px #948b09,
       0 0 12px #948b09,
+    }
+
+    .sheet-purpose-summary {
+      font-size: 18px;
+      font-weight: bold;
+
+      margin: 10px 0;
+    }
+
+    .sheet-purpose-feat {
+      font-size: 16px;
+      margin: 5px 0;
     }
   }
 
