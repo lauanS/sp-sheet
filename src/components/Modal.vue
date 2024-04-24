@@ -9,7 +9,7 @@
         <div class="content">
           <slot />
         </div>
-        <div class="actions">
+        <div v-if="actions" class="actions">
           <button @click="$emit('close')">Fechar</button>
         </div>
       </div>
@@ -20,7 +20,8 @@
 <script setup lang="ts">
 const { show } = defineProps<{
   show: boolean,
-  title?: string
+  title?: string,
+  actions?: boolean
 }>();
 
 defineEmits<
