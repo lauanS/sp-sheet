@@ -10,7 +10,7 @@
 
       <div class="home-actions">
         <ImportCharacterButton class="main-button" @onload="navigateToSheetPage" />
-        <button class="main-button">Utilizar personagens de demonstração</button>
+        <button class="main-button" @click="openModal">Utilizar personagens de demonstração</button>
       </div>
     </div>
 
@@ -21,18 +21,36 @@
       <p class="sheet-purpose-feat">Deixe de esquecer de osmar inspiração</p>
     </div>
   </div>
+
+  <Modal
+    title="Selecione o personagem"
+    :show="showSelectCharacterModal"
+    @close="closeModal"
+  />
 </template>
 
 <script setup lang="ts">
 import type { Character } from '@/types';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import ImportCharacterButton from '@/components/ImportCharacterButton.vue';
+import Modal from '@/components/Modal.vue';
 
 const router = useRouter();
+
+const showSelectCharacterModal = ref(false);
 
 function navigateToSheetPage(character: Character) {
   localStorage.setItem('character', JSON.stringify(character));
   router.push({ path: '/sheet' });
+}
+
+function openModal() {
+  showSelectCharacterModal.value = true;
+}
+
+function closeModal() {
+  showSelectCharacterModal.value = false;
 }
 </script>
 
