@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import SheetView from '@/views/SheetView.vue'
+import SheetPage from '@/views/SheetPage.vue'
+import Home from '@/views/HomePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +8,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: SheetView
+      component: Home
+    },
+    {
+      path: '/sheet',
+      name: 'sheet',
+      component: SheetPage
     }
   ]
 })

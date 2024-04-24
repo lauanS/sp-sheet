@@ -95,6 +95,16 @@ const selectedMod = computed(() => {
   return (possibleMods[selectedStatus.value]).value;
 });
 
+function onCreated() {
+  const storagedCharacter = localStorage.getItem('character');
+
+  if (storagedCharacter) {
+    const character = JSON.parse(storagedCharacter) as Character;
+
+    fillCharacterInfo(character);
+  }
+}
+
 function selectStatus(status: ModifierStatus): void {
   selectedStatus.value = status;
 }
@@ -156,6 +166,8 @@ function passiveSkillsToModList(skills: PassiveSkill[]): Mod[] {
     return modList;
   }, []);
 }
+
+onCreated();
 </script>
 
 <style scoped lang="scss">
