@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <Teleport to="body">
-    <div v-if="show" class="background">
+    <div v-if="show" class="background" @click.self="$emit('close')">
       <div class="container">
         <div v-if="title" class="title">
           <h2>{{  title }}</h2>
