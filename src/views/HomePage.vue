@@ -26,15 +26,28 @@
     title="Selecione o personagem"
     :show="showSelectCharacterModal"
     @close="closeModal"
-  />
+  >
+    <div class="pre-built-characters">
+      <SPButton
+        v-for="character of preBuiltCharacters"
+        :key="character.name"
+        @click="() => navigateToSheetPage(character)"
+      >
+        {{ character.name }}
+      </SPButton>
+    </div>
+  </Modal>
 </template>
 
 <script setup lang="ts">
 import type { Character } from '@/types';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import ImportCharacterButton from '@/components/ImportCharacterButton.vue';
 import Modal from '@/components/Modal.vue';
+import SPButton from '@/components/SPButton.vue';
+import ImportCharacterButton from '@/components/ImportCharacterButton.vue';
+
+import preBuiltCharacters from '@/utils/pre-built-characters';
 
 const router = useRouter();
 
@@ -217,6 +230,15 @@ function closeModal() {
     .main-button {
       font-size: 16px;
     }
+  }
+}
+
+.pre-built-characters {
+  display: flex;
+  flex-direction: column;
+
+  > button {
+    margin-bottom: 10px;
   }
 }
 </style>
