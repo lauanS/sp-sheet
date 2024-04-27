@@ -10,7 +10,7 @@
 
       <div class="home-actions">
         <ImportCharacterButton class="main-button" @onload="navigateToSheetPage" />
-        <button class="main-button">Utilizar personagens de demonstração</button>
+        <button class="main-button" @click="openModal">Utilizar personagens de demonstração</button>
       </div>
     </div>
 
@@ -21,18 +21,53 @@
       <p class="sheet-purpose-feat">Deixe de esquecer de osmar inspiração</p>
     </div>
   </div>
+
+  <Modal
+    title="Selecione o personagem"
+    :show="showSelectCharacterModal"
+    @close="closeModal"
+  >
+    <div class="pre-built-characters">
+      <SPButton
+        v-for="character of preBuiltCharacters"
+        :key="character.name"
+        @click="() => navigateToSheetPage(character, true)"
+      >
+        {{ character.name }}
+      </SPButton>
+    </div>
+  </Modal>
 </template>
 
 <script setup lang="ts">
 import type { Character } from '@/types';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import Modal from '@/components/Modal.vue';
+import SPButton from '@/components/SPButton.vue';
 import ImportCharacterButton from '@/components/ImportCharacterButton.vue';
 
-const router = useRouter();
+import preBuiltCharacters from '@/utils/pre-built-characters';
+import { useGlobalStore } from '@/store/global';
 
-function navigateToSheetPage(character: Character) {
+const router = useRouter();
+const globalStore = useGlobalStore()
+
+const showSelectCharacterModal = ref(false);
+
+function navigateToSheetPage(character: Character, preBuilt?: boolean) {
   localStorage.setItem('character', JSON.stringify(character));
+
+  globalStore.setPreBuilt(!!preBuilt);
   router.push({ path: '/sheet' });
+}
+
+function openModal() {
+  showSelectCharacterModal.value = true;
+}
+
+function closeModal() {
+  showSelectCharacterModal.value = false;
 }
 </script>
 
@@ -199,6 +234,15 @@ function navigateToSheetPage(character: Character) {
     .main-button {
       font-size: 16px;
     }
+  }
+}
+
+.pre-built-characters {
+  display: flex;
+  flex-direction: column;
+
+  > button {
+    margin-bottom: 10px;
   }
 }
 </style>

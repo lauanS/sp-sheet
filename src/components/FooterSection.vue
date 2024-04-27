@@ -1,10 +1,13 @@
 <template>
   <footer>
-    <p>Developed by <a target="_blank" href="https://github.com/lauanS">lauanS</a></p>
+    <p>Developed by <a target="_blank" href="https://github.com/lauanS">lauanS</a><span v-if="global.preBuilt">, icons by:  <a target="_blank" href="https://icons8.com">Icons8</a></span></p>
   </footer>
 </template>
 
 <script setup lang="ts">
+import { useGlobalStore } from '@/store/global';
+
+const global = useGlobalStore();
 </script>
 
 <style>
