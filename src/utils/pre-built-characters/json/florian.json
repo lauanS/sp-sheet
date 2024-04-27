@@ -128,7 +128,7 @@
     {
       "name": "Vampiro lunar",
       "type": "active",
-      "img": "https://icons8.com/icon/IcAFnNaCbNa6/vampiro",
+      "img": "https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-vampire-supernatural-flaticons-flat-flat-icons.png",
       "modifiers": [{ "status": "hit", "value": 2 },
         { "status": "defense", "value": 4 },
         { "status": "damage", "value": 2 }
