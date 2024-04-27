@@ -31,7 +31,7 @@
       <SPButton
         v-for="character of preBuiltCharacters"
         :key="character.name"
-        @click="() => navigateToSheetPage(character)"
+        @click="() => navigateToSheetPage(character, true)"
       >
         {{ character.name }}
       </SPButton>
@@ -48,13 +48,17 @@ import SPButton from '@/components/SPButton.vue';
 import ImportCharacterButton from '@/components/ImportCharacterButton.vue';
 
 import preBuiltCharacters from '@/utils/pre-built-characters';
+import { useGlobalStore } from '@/store/global';
 
 const router = useRouter();
+const globalStore = useGlobalStore()
 
 const showSelectCharacterModal = ref(false);
 
-function navigateToSheetPage(character: Character) {
+function navigateToSheetPage(character: Character, preBuilt?: boolean) {
   localStorage.setItem('character', JSON.stringify(character));
+
+  globalStore.setPreBuilt(!!preBuilt);
   router.push({ path: '/sheet' });
 }
 
