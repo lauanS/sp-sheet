@@ -43,6 +43,8 @@
 <script setup lang="ts">
 import type { ModifierStatus, Skill, ActiveSkill, PassiveSkill, Character, Weapon } from '@/types';
 import { ref, computed } from 'vue';
+import { onBeforeRouteLeave } from 'vue-router';
+import { useGlobalStore } from '@/store/global';
 import ModifierInfo from '@/components/ModifierInfo.vue';
 import StatusInfo from '@/components/StatusInfo.vue';
 import SkillButton from '@/components/SkillButton.vue';
@@ -54,6 +56,8 @@ type Mod = {
   value: number,
   description: string
 }
+
+const { setPreBuilt } = useGlobalStore()
 
 const characterName = ref('Nome do personagem');
 const weapon = ref<Weapon>({
@@ -94,6 +98,16 @@ const selectedMod = computed(() => {
 
   return (possibleMods[selectedStatus.value]).value;
 });
+
+function onCreated() {
+  const storagedCharacter = localStorage.getItem('character');
+
+  if (storagedCharacter) {
+    const character = JSON.parse(storagedCharacter) as Character;
+
+    fillCharacterInfo(character);
+  }
+}
 
 function selectStatus(status: ModifierStatus): void {
   selectedStatus.value = status;
@@ -156,6 +170,12 @@ function passiveSkillsToModList(skills: PassiveSkill[]): Mod[] {
     return modList;
   }, []);
 }
+
+onCreated();
+
+onBeforeRouteLeave(() => {
+  setPreBuilt(false);
+});
 </script>
 
 <style scoped lang="scss">

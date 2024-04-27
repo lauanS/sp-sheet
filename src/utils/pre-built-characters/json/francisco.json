@@ -1,0 +1,121 @@
+{
+  "name": "Francisco",
+  "weapon": {
+    "name": "Mosquete Valvulado",
+    "dice": "3d8 + 1d6",
+    "critChance": 18,
+    "critMod": 3
+  },
+  "defense": 10,
+  "skills": [
+    {
+      "name": "Base",
+      "type": "passive",
+      "modifiers": [
+        { "status": "defense", "value": 10 }
+      ],
+      "description": "Valores iniciais de todo personagem"
+    },
+    {
+      "name": "Pontaria",
+      "type": "passive",
+      "modifiers": [{ "status": "hit", "value": 9 }],
+      "description": "Esta perícia mede sua capacidade de mira, seja com armas de arremesso, seja com armas de disparo."
+    },
+    {
+      "name": "Válvulas de precisão",
+      "type": "passive",
+      "modifiers": [{ "status": "hit", "value": 1 }],
+      "description": "Válvulas desenvolvidas para dar maior precisão em disparos de longa distância, Origem: Mosquete Valvulado"
+    },
+    {
+      "name": "Adamante",
+      "type": "passive",
+      "modifiers": [{ "status": "damage", "value": 10 }],
+      "description": "----------"
+    },
+    {
+      "name": "Certeira",
+      "type": "passive",
+      "modifiers": [{ "status": "hit", "value": 1 }],
+      "description": "Forjada para ser mais precisa e balanceada, a arma fornece um bônus de +1 nos testes de ataque."
+    },
+    {
+      "name": "Pungente",
+      "type": "passive",
+      "modifiers": [{ "status": "hit", "value": 1 }],
+      "description": "Temperada diversas vezes para adquirir o fio perfeito — ou o equilíbrio perfeito, no caso de uma arma sem fio —, a arma fornece um bônus de +2 nos testes de ataque. Pré-requisito: Certeira, não acumula com certeira"
+    },
+    {
+      "name": "Cruel",
+      "type": "passive",
+      "modifiers": [{ "status": "damage", "value": 1 }],
+      "description": "Rebarbas, espinhos e até mesmo lâminas adicionais podem compor uma arma cruel. Ela fornece um bônus de +1 nas rolagens de dano."
+    },
+    {
+      "name": "Precisa",
+      "type": "passive",
+      "modifiers": [{ "status": "critChance", "value": 1 }],
+      "description": "Cuidado especial foi tomado ao temperar o aço desta arma, para que seu fio se mantenha sempre como uma navalha. A margem de ameaça aumenta em 1 ponto. Uma arma não pode ser precisa e maciça."
+    },
+    {
+      "name": "Balística",
+      "type": "passive",
+      "modifiers": [{ "status": "hit", "value": 5 }],
+      "description": "Você recebe proficiência com armas marciais de ataque à distância ou com armas de fogo. Quando usa uma arma de ataque à distância, pode usar seu modificador de Inteligência em vez de Destreza nos testes de ataque (e, caso possua o poder Estilo de Disparo, nas rolagens de dano). Pré-requisitos: treinado em Pontaria e Ofício (armeiro)"
+    },
+    {
+      "name": "Estilo de Disparo (Balístico)",
+      "type": "passive",
+      "modifiers": [{ "status": "damage", "value": 5 }],
+      "description": "Se estiver usando uma arma de disparo, você soma o bônus de <Inteligência> nas rolagens de dano. Pré-requisito: treinado em Pontaria, <balística>."
+    },
+    {
+      "name": "Arm. Inventor Cronoprisma <mod>",
+      "type": "passive",
+      "modifiers": [{ "status": "defense", "value": 3 }],
+      "description": "Armadura, modificação de encantamento: Refletora"
+    },
+    {
+      "name": "Quartus",
+      "type": "passive",
+      "modifiers": [{ "status": "defense", "value": 2 }],
+      "description":"Quartus é um bom companheiro, que  sempre tenta proteger seu criador"
+    },
+    {
+      "name": "Relógio Corasaum",
+      "type": "active",
+      "img": "https://img.icons8.com/dusk/64/watches-front-view--v2.png",
+      "modifiers": [{ "status": "defense", "value": 4 }],
+      "description": "Engenhoca de armadura arcana"
+    },
+    {
+      "name": "Disparo Rápido",
+      "type": "active",
+      "img": "https://img.icons8.com/external-others-maxicons/62/external-cowboy-united-states-of-america-others-maxicons-2.png",
+      "modifiers": [{ "status": "hit", "value": -2 }],
+      "description":"Se estiver usando uma arma de ataque à distância e gastar uma ação completa para atacar, você pode fazer um ataque adicional com ela (se puder recarregála como ação livre). Se fizer isso, sofre –2 em todos os testes de ataque até o seu próximo turno. Pré-requisito: Des 13, Estilo de Disparo ou Estilo de Arremesso."
+    },
+    {
+      "name": "Quartus Zap!! V.2",
+      "type": "active",
+      "img": "https://img.icons8.com/arcade/64/lightsaber.png",
+      "modifiers": [{ "status": "damage", "value": 20 }],
+      "description":"Uma vez por rodada, como uma ação livre, você pode gastar 1 PM para causar 2d6 pontos de dano de ácido, eletricidade, fogo ou frio (de acordo com o aliado) em um alvo em alcance curto."
+    },
+    {
+      "name": "Encontrar fraqueza",
+      "type": "active",
+      "img": "https://img.icons8.com/dusk/64/define-location.png",
+      "modifiers": [{ "status": "hit", "value": 2 }],
+      "description": "A partir do 7º nível, você pode gastar uma ação de movimento e 2 PM para analisar um objeto em alcance curto. Se fizer isso, ignora a resistência a dano dele. Você também pode usar esta habilidade para encontrar uma fraqueza em um inimigo. Se ele estiver de armadura ou for um construto, você recebe +2 em seus testes de ataque contra ele. Os benefícios desta habilidade duram até o fim da cena."
+    },
+    {
+      "name": "Protótipo F4",
+      "type": "active",
+      "img": "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/external-robot-robotics-icons-flaticons-lineal-color-flat-icons-15.png",
+      "modifiers": [],
+      "description":"<TOP_SECRET>"
+    }
+  ]
+}
