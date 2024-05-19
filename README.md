@@ -2,6 +2,10 @@
 
 This web application, built with Vue.js, is designed for personal use and is tailored specifically for managing character sheets for a single RPG campaign. At the moment, there are no plans to update it to support multiple campaigns or characters outside of its intended use.
 
+## Getting Started
+
+The easiest way to start using SP Sheets is through the website [sp-sheet](https://lauans.github.io/sp-sheet/)
+
 ## Installation ⚗️
 
 To run the application locally, follow these steps:
